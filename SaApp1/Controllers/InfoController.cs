@@ -37,7 +37,10 @@ namespace SaApp1.Controllers
                 var originalPerson = new RealPerson(returnedRealPerson.ID);
 
                 if (!ModelState.IsValid)
+                {
+                    ViewBag.Message = "Invalid state";
                     return View(returnedRealPerson);
+                }
 
                 _db.People.Attach(originalPerson.Person);
                 if (originalPerson.PersonInfo != null)
@@ -45,7 +48,7 @@ namespace SaApp1.Controllers
 
                 var currentPassword = originalPerson.Person.Password;
                 _db.Entry(originalPerson.Person).CurrentValues.SetValues(returnedRealPerson.Person);
-                if (currentPassword != originalPerson.Person.Password.MD5())
+                if (string.IsNullOrEmpty(originalPerson.Person.Password) || currentPassword != originalPerson.Person.Password.MD5())
                 {
                     originalPerson.Person.Password = currentPassword;
                 }
@@ -66,7 +69,8 @@ namespace SaApp1.Controllers
                 }
                 _db.SaveChanges();
 
-                return View(originalPerson);
+                ViewBag.Message = "Information Saved";
+                return PartialView(originalPerson);
             }
             // https://stackoverflow.com/questions/7795300/validation-failed-for-one-or-more-entities-see-entityvalidationerrors-propert
             catch (DbEntityValidationException e)

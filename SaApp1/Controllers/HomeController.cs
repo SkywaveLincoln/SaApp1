@@ -57,3 +57,4 @@ namespace SaApp1.Controllers
 // https://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/
 // https://www.youtube.com/watch?v=OgdpC35qHc0&t=688s
 // https://www.mikesdotnetting.com/article/335/simple-authentication-in-razor-pages-without-a-database
+// https://www.c-sharpcorner.com/article/forms-authentication-in-mvc/

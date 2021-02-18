@@ -4,101 +4,103 @@
     ViewBag.Title = "Edit your profile:";
 }
 
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-<h4>Edit profile</h4>
-<h6>@ViewBag.Message</h6>
-
-@using (Ajax.BeginForm("Edit", "Info", new AjaxOptions { HttpMethod = "POST" }))
-{
-    @Html.AntiForgeryToken()
-
-    if (User.Identity.IsAuthenticated)
+<div id="profile_form">
+    <h4>Edit profile</h4>
+    @using (Ajax.BeginForm("Edit", "Info", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "profile_form" }))
     {
+        @Html.AntiForgeryToken()
 
-        @Html.HiddenFor(rp => rp.Person.Id)
-        @Html.HiddenFor(rp => rp.PersonInfo.Id)
-        @Html.HiddenFor(rp => rp.PersonInfo.PersonId)
+        if (User.Identity.IsAuthenticated)
+        {
 
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(rp => rp.Person.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.Person.Name, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+            @Html.HiddenFor(rp => rp.Person.Id)
+            @Html.HiddenFor(rp => rp.PersonInfo.Id)
+            @Html.HiddenFor(rp => rp.PersonInfo.PersonId)
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(rp => rp.Person.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.Person.Name, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    @Html.LabelFor(rp => rp.Person.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.Person.Surname, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                    </div>
                 </div>
-                @Html.LabelFor(rp => rp.Person.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.Person.Surname, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                <div class="form-group">
+                    @Html.LabelFor(rp => rp.PersonInfo.TelNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.TelNo, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.PersonInfo.CellNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.CellNo, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(rp => rp.PersonInfo.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.AddressLine1, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.PersonInfo.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.AddressLine2, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.PersonInfo.AddressLine3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.AddressLine3, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.PersonInfo.AddressCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.AddressCode, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(rp => rp.PersonInfo.PostalAddress1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.PostalAddress1, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.PersonInfo.PostalAddress2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.PostalAddress2, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.PersonInfo.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(rp => rp.PersonInfo.PostalCode, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(rp => rp.Person.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(rp => rp.Person.Password, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(rp => rp.NewPassword, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(rp => rp.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(rp => rp.ConfirmPassword, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                    <div class="col-md-12 text-success">
+                        @ViewBag.Message
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(rp => rp.PersonInfo.TelNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.TelNo, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.PersonInfo.CellNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.CellNo, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(rp => rp.PersonInfo.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.AddressLine1, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.PersonInfo.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.AddressLine2, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.PersonInfo.AddressLine3, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.AddressLine3, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.PersonInfo.AddressCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.AddressCode, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(rp => rp.PersonInfo.PostalAddress1, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.PostalAddress1, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.PersonInfo.PostalAddress2, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.PostalAddress2, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.PersonInfo.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(rp => rp.PersonInfo.PostalCode, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(rp => rp.Person.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(rp => rp.Person.Password, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(rp => rp.NewPassword, htmlAttributes: new { @class = "form-control" })
-                </div>
-                @Html.LabelFor(rp => rp.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(rp => rp.ConfirmPassword, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
+        }
     }
-}
-
     <div>
         @Html.ActionLink("Sign out", "Logout")
     </div>
+</div>
