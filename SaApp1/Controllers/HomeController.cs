@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Security;
 
 namespace SaApp1.Controllers
 {
@@ -25,13 +26,16 @@ namespace SaApp1.Controllers
         public ActionResult LoginMethod(LoginUser loginUser)
         {
             var md5Password = loginUser.Password.MD5();
-            var loggedInUser = _db.People.FirstOrDefault(m => (m.Name + " " + m.Surname) == loginUser.FullName && 
+            var loggedInUser = _db.People.FirstOrDefault(m => (m.Name + " " + m.Surname) == loginUser.FullName &&
                 md5Password == m.Password);
-            if(loggedInUser != null && loginUser.FullName != "admin")
+            if (loggedInUser != null && loginUser.FullName != "admin")
             {
-                // update LastLogin with current date
                 loggedInUser.LastLogin = DateTime.Now;
                 _db.SaveChanges();
+
+                
+                    FormsAuthentication.SetAuthCookie(string.Concat(loggedInUser.Id, ":", loggedInUser.Name, " ", loggedInUser.Surname), false);
+
                 return RedirectToAction("Edit", "Info", new { id = loggedInUser.Id });
             }
 

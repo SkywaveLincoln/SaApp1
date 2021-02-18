@@ -5,9 +5,11 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace SaApp1.Controllers
 {
+    [Authorize]
     public class InfoController : Controller
     {
         private SaApp1DBEntities _db = new SaApp1DBEntities();
@@ -86,6 +88,12 @@ namespace SaApp1.Controllers
                 ViewBag.Message = ex.Message;
                 return View(returnedRealPerson);
             }
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
